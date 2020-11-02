@@ -4,14 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon --exec babel-node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "chuongtrh",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.783.0",
     "axios": "^0.21.0",
     "dotenv": "^8.2.0",
     "handlebars": "^4.0.12",
+    "moment": "^2.29.1",
     "puppeteer": "^1.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "nodemon": "^2.0.6"
   }
 }

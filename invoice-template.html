@@ -192,8 +192,8 @@
             <div class="underline"></div>
         </div>
         <div class="invoice-body">
-            <p>Data wystawienia: <span><b>09.10.2020</b></span></p>
-            <p>Numer faktury: <span><b>09.10.2020</b></span></p>
+            <p>Data wystawienia: <span><b>{{date order.createdAt}}</b></span></p>
+            <p>Numer faktury: <span><b>{{invoiceNr}}</b></span></p>
         </div>
     </div>
     <div class="seller-buyer">
@@ -205,9 +205,9 @@
         </div>
         <div class="person buyer">
             <h3>Nabywca</h3>
-            <p>Krystian Nagórny</p>
-            <p>ul. św. Filipa 23/4</p>
-            <p>31-150 Kraków</p>
+            <p>{{buyer.name}} {{buyer.surname}}</p>
+            <p>ul. {{buyer.street}} {{order.building}} {{#if buyer.flat}}/{{buyer.flat}}{{/if}}</p>
+            <p>{{buyer.city}}, {{buyer.zipCode}}</p>
 
         </div>
     </div>

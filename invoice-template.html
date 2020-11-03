@@ -113,7 +113,10 @@
     .product-table .header .column:first-child{
         width: 10%;
     }
-
+    .product-table .body .voucher{
+        color: #11CB6E;
+        font-weight: bold;
+    }
     .product-table .body .column:first-child{
         width: 10%;
     }
@@ -135,6 +138,8 @@
     }
     .product-table .footer .column {
         width: 16.4% !important;
+    }
+    .product-table .footer .column{
     }
     .product-table .footer .column:nth-child(6) {
         width: 8% !important;
@@ -206,7 +211,7 @@
         <div class="person buyer">
             <h3>Nabywca</h3>
             <p>{{buyer.name}} {{buyer.surname}}</p>
-            <p>ul. {{buyer.street}} {{order.building}} {{#if buyer.flat}}/{{buyer.flat}}{{/if}}</p>
+            <p>ul. {{buyer.street}} {{buyer.building}}{{#if buyer.flat}}/{{buyer.flat}}{{/if}}</p>
             <p>{{buyer.city}}, {{buyer.zipCode}}</p>
 
         </div>
@@ -241,37 +246,60 @@
             </div>
         </div>
         <div class="body">
+            {{#each order.productLists}}
             <div class="row">
                 <div class="column">
-                    1.
+                    {{inc @index}}
                 </div>
                 <div class="column">
-                    Sweter w romby z zielonym kapturem
-                    zielony
+                    {{product.title}}
                 </div>
                 <div class="column"></div>
                 <div class="column">
                     zw
                 </div>
                 <div class="column">
-                    20.00
+                    {{#if product.promoPrice}}
+                    <span >{{decimal product.price}} zł</span>
+                    <span >{{decimal product.promoPrice}} zł</span>
+                    {{else}}
+                    {{decimal product.price}} zł
+                    {{/if}}
                 </div>
             </div>
+            {{/each}}
             <div class="row">
                 <div class="column">
-                    1.
+                    {{inc order.productLists.length}}
                 </div>
                 <div class="column">
-                    Kurtka Adidas Vintage
+                    Wysyłka
                 </div>
                 <div class="column"></div>
                 <div class="column">
                     zw
                 </div>
                 <div class="column">
-                    20.00
+                    {{decimal order.shipping.shippingPrice}} zł
                 </div>
             </div>
+            {{#if order.voucher}}
+            <div class="row">
+                <div class="column">
+<!--                    {{inc order.productLists.length}}-->
+                </div>
+                <div class="column voucher">
+                    Kod promocyjny
+                </div>
+                <div class="column"></div>
+                <div class="column">
+<!--                    zw-->
+                </div>
+                <div class="column voucher">
+                    - {{voucherDiscount order}} zł
+                </div>
+            </div>
+            {{/if}}
         </div>
         <div class="footer">
             <div class="header">
@@ -285,18 +313,18 @@
             </div>
             <div class="header summary">
                 <div class="column">Przelew</div>
-                <div class="column">16.10.2020</div>
-                <div class="column">140.00 PLN</div>
+                <div class="column">{{date order.createdAt}}</div>
+                <div class="column">{{decimal order.total}} PLN</div>
                 <div class="column">zw.</div>
-                <div class="column">140.00</div>
+                <div class="column">{{decimal order.total}} zł</div>
                 <div class="column">0.00</div>
-                <div class="column price-brutto">140.00</div>
+                <div class="column price-brutto">{{decimal order.total}} zł</div>
             </div>
         </div>
     </div>
     <div class="extra-info">
         <p>Dodatkowe informacje:</p>
-        <p>ID transakcji: 1880682907</p>
+        <p>ID transakcji: {{order.payment.paymentId}}</p>
     </div>
 </body>
 </html>

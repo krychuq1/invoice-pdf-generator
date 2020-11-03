@@ -7,7 +7,17 @@ import moment from 'moment'
 Handlebars.registerHelper('date', (date) => {
     return moment(date).format('DD.MM.YYYY');
 });
-
+Handlebars.registerHelper("inc", (value, options) => {
+    return parseInt(value) + 1;
+});
+Handlebars.registerHelper('decimal', (price) => {
+    return (Math.round(price * 100) / 100).toFixed(2);
+});
+Handlebars.registerHelper('voucherDiscount', (order) => {
+    const val = ((order.total - order.shipping.shippingPrice) * 100 / (100 - order.voucher.pctDiscount)) * order.voucher.pctDiscount / 100;
+    const price = (Math.round(val * 100) / 100).toFixed(2);
+    return price
+});
 class PdfGeneratorService{
     constructor() {}
 

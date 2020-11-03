@@ -8,9 +8,10 @@ class Index{
     }
     async init() {
         await this.getToken();
-        console.log('token received');
+        console.log('token received ');
         const res = await this.getOrders();
-        console.log('order received');
+
+        // console.log('order received');
         pdfGeneratorService.generatePdf(res.data[0]);
 
     }

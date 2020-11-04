@@ -21,13 +21,13 @@ Handlebars.registerHelper('voucherDiscount', (order) => {
 class PdfGeneratorService{
     constructor() {}
 
-   async generatePdf(order) {
+   async generatePdf(order, filename, invoiceNr) {
         try {
             console.log(order);
         const dataBinding = {
             buyer: order.billingAddress,
             order: order,
-            invoiceNr: 'FS/1/2020'
+            invoiceNr: invoiceNr
         }
         const templateHtml = fs.readFileSync(path.join(process.cwd() + '\\invoice-template.html'), 'utf8');
         const template = handlebars.compile(templateHtml);
@@ -42,7 +42,7 @@ class PdfGeneratorService{
                 bottom: "100px"
             },
             printBackground: true,
-            path: 'invoice.pdf'
+            path: 'invoices/' + filename
         }
 
         const browser = await puppeteer.launch({

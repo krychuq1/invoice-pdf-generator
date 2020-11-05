@@ -21,6 +21,9 @@ Handlebars.registerHelper('voucherDiscount', (order) => {
 class PdfGeneratorService{
     constructor() {}
 
+   async getBase64(filename) {
+        return fs.readFileSync('invoices/' + filename).toString('base64');
+   }
    async generatePdf(order, filename, invoiceNr) {
         try {
             console.log(order);

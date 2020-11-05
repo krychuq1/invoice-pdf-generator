@@ -1,11 +1,34 @@
 import pdfGeneratorService from './services/pdf-generator.service';
 import awsUploader from './services/aws-uploader.service'
+import express from 'express';
+import bodyParser from 'body-parser'
 require('dotenv').config()
+
+
+
 const axios = require('axios').default;
 class Index{
     constructor() {
+        this.app = express();
+        this.app.use(bodyParser.urlencoded({
+            extended: true
+        }));
+        this.app.use(bodyParser.json());
+        this.app.listen(5000)
+        this.app.post('/generate-invoice',  async (req, res) => {
+            console.log('going to generate file', req.body);
+            try{
+                const filename = 'invoice_' + req.body.createdAt.slice(0, 10) + '_' +
+                    req.body.billingAddress.name + '_' + req.body.billingAddress.surname + '.pdf'
+                await pdfGeneratorService.generatePdf(req.body, filename, '88');
+                res.send(await pdfGeneratorService.getBase64(filename));
+            } catch (e) {
+                res.status(400).send({e: 'error'})
+            }
+
+        })
         // token = '';
-        this.init();
+        // this.init();
     }
     async init() {
         await this.getToken();
@@ -18,11 +41,6 @@ class Index{
             await pdfGeneratorService.generatePdf(o, filename, invoiceNr);
             // await awsUploader.uploadFile(filename);
         }
-        // await pdfGeneratorService.generatePdf(res.data[0], filename);
-
-        // console.log('order received');
-        // pdfGeneratorService.generatePdf(res.data[0]);
-        // awsUploader.uploadFile();
 
     }
     async getToken() {

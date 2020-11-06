@@ -8,12 +8,29 @@ class AwsUploaderService{
    secretAccessKey: process.env.AWS_SECRET,
   });
  }
+ async getInvoiceNumber() {
+  return new Promise(async (resolve, reject) => {
+   const params = {
+    Bucket: process.env.ENV === 'PROD' ? process.env.AWS_BUCKET_NAME_PROD: process.env.AWS_BUCKET_NAME_DEV,
+   }
+   console.log(params);
+   this.s3.listObjectsV2(params,(err, data) => {
+    if (err) {
+     reject(err);
+    } else {
+     const invoiceNumber = data.KeyCount + 1;
+     resolve('fs/' + invoiceNumber + '/2020');
+    }
+   })
+  });
+
+ }
  async uploadFile(filename) {
   return new Promise(async (resolve, reject) => {
-   const file = await fs.readFileSync(path.join(process.cwd() + '\\invoice.pdf'))
+   const file = await fs.readFileSync(path.join(process.cwd() + '\\invoices\\' + filename))
    console.log(file);
    const params = {
-    Bucket: process.env.AWS_BUCKET_NAME,
+    Bucket: process.env.ENV === 'PROD' ? process.env.AWS_BUCKET_NAME_PROD : process.env.AWS_BUCKET_NAME_DEV,
     ContentType: 'application/pdf',
     Key: filename, // File name you want to save as in S3
     Body: file,

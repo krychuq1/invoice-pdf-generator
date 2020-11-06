@@ -18,17 +18,19 @@ class Index{
         this.app.post('/generate-invoice',  async (req, res) => {
             console.log('going to generate file', req.body);
             try{
+                // get invoice number
+                const invoiceNumber = await awsUploader.getInvoiceNumber();
                 const filename = 'invoice_' + req.body.createdAt.slice(0, 10) + '_' +
                     req.body.billingAddress.name + '_' + req.body.billingAddress.surname + '.pdf'
-                await pdfGeneratorService.generatePdf(req.body, filename, '88');
+                await pdfGeneratorService.generatePdf(req.body, filename, invoiceNumber);
+                awsUploader.uploadFile(filename);
                 res.send(await pdfGeneratorService.getBase64(filename));
+
             } catch (e) {
                 res.status(400).send({e: 'error'})
             }
 
         })
-        // token = '';
-        // this.init();
     }
     async init() {
         await this.getToken();

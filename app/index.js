@@ -20,7 +20,8 @@ class Index{
             try{
                 // get invoice number
                 const invoiceNumber = await awsUploader.getInvoiceNumber();
-                const filename = 'invoice_' + req.body.createdAt.slice(0, 10) + '_' +
+                console.log(req.body.createdAt)
+                const filename = 'invoice_' + req.body.createdAt.slice(0, 19).replace(/:/g, '-') + '_' +
                     req.body.billingAddress.name + '_' + req.body.billingAddress.surname + '.pdf'
                 await pdfGeneratorService.generatePdf(req.body, filename, invoiceNumber);
                 awsUploader.uploadFile(filename);

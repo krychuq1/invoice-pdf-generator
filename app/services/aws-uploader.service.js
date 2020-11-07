@@ -32,7 +32,7 @@ class AwsUploaderService{
  }
  async uploadFile(filename) {
   return new Promise(async (resolve, reject) => {
-   const file = await fs.readFileSync(path.join(process.cwd() + '\\invoices\\' + filename))
+   const file = await fs.readFileSync(path.join(process.cwd() + '/invoices/' + filename))
    console.log(file);
    const params = {
     Bucket: process.env.ENV === 'PROD' ? process.env.AWS_BUCKET_NAME_PROD : process.env.AWS_BUCKET_NAME_DEV,

@@ -45,7 +45,7 @@ class PdfGeneratorService{
                 bottom: "100px"
             },
             printBackground: true,
-            path: 'invoices/' + filename
+            path: path.join(process.cwd() + '/invoices/' + filename)
         }
 
         const browser = await puppeteer.launch({

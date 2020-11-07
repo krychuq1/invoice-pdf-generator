@@ -32,7 +32,7 @@ class PdfGeneratorService{
             order: order,
             invoiceNr: invoiceNr
         }
-        const templateHtml = fs.readFileSync(path.join(process.cwd() + '\\invoice-template.html'), 'utf8');
+        const templateHtml = fs.readFileSync(path.join(process.cwd() + '/invoice-template.html'), 'utf8');
         const template = handlebars.compile(templateHtml);
         const finalHtml = encodeURIComponent(template(dataBinding));
         const options = {

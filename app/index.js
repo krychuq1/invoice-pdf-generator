@@ -28,6 +28,7 @@ class Index{
                 res.send(await pdfGeneratorService.getBase64(filename));
 
             } catch (e) {
+                console.log(e);
                 res.status(400).send({e: 'error'})
             }
 

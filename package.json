@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node index.js",
+    "start": "nodemon --exec babel-node ./app/index.js",
+    "build": "babel  ./app -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "chuongtrh",
@@ -20,6 +21,7 @@
     "puppeteer": "^1.8.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/node": "^7.12.1",
     "@babel/preset-env": "^7.12.1",

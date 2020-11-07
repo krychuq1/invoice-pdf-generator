@@ -14,7 +14,7 @@ class Index{
             extended: true
         }));
         this.app.use(bodyParser.json());
-        this.app.listen(5000)
+        this.app.listen(process.env.PORT);
         this.app.post('/generate-invoice',  async (req, res) => {
             console.log('going to generate file', req.body);
             try{

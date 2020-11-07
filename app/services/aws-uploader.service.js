@@ -9,6 +9,7 @@ class AwsUploaderService{
   });
  }
  async getInvoiceNumber() {
+  console.log(process.env.AWS_ID, process.env.AWS_SECRET)
   return new Promise(async (resolve, reject) => {
    const params = {
     Bucket: process.env.ENV === 'PROD' ? process.env.AWS_BUCKET_NAME_PROD: process.env.AWS_BUCKET_NAME_DEV,

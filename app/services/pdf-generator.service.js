@@ -22,7 +22,7 @@ class PdfGeneratorService{
     constructor() {}
 
    async getBase64(filename) {
-        return fs.readFileSync('invoices/' + filename).toString('base64');
+        return fs.readFileSync(path.join(process.cwd() + '/invoices/' + filename)).toString('base64');
    }
    async generatePdf(order, filename, invoiceNr) {
         try {

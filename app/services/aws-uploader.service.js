@@ -9,6 +9,10 @@ class AwsUploaderService{
   });
  }
  async getInvoiceNumber() {
+     this.s3 = new AWS.S3({
+         accessKeyId: process.env.AWS_ID,
+         secretAccessKey: process.env.AWS_SECRET,
+     });
   console.log(process.env.AWS_ID, process.env.AWS_SECRET)
   return new Promise(async (resolve, reject) => {
    const params = {

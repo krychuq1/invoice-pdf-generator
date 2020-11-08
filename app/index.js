@@ -9,7 +9,7 @@ import bodyParser from 'body-parser'
 const axios = require('axios').default;
 class Index{
     constructor() {
-        this.init();
+        // this.init();
         this.app = express();
         this.app.use(bodyParser.urlencoded({
             extended: true
@@ -36,17 +36,17 @@ class Index{
         })
     }
     async init() {
-        const invoiceNumber = await awsUploader.getInvoiceNumber();
-        console.log(invoiceNumber);
+        // const invoiceNumber = await awsUploader.getInvoiceNumber();
+        // console.log(invoiceNumber);
         // await this.getToken();
         // console.log('token received ');
         // const res = await this.getOrders();
         // for (let [i, o] of res.data.entries()) {
-        //     const invoiceNr = 'FS/' + (i + 1) + '/2020';
+        //     const invoiceNr = 'FS/' + (i + 8) + '/2020';
         //     const filename = 'invoice_' + o.createdAt.slice(0, 10) + '_' +
         //     o.billingAddress.name + '_' + o.billingAddress.surname + '.pdf'
         //     await pdfGeneratorService.generatePdf(o, filename, invoiceNr);
-        //     // await awsUploader.uploadFile(filename);
+        //     await awsUploader.uploadFile(filename);
         // }
 
     }
@@ -62,8 +62,8 @@ class Index{
         }
     }
     async getOrders() {
-        const startDate = '2020-09-16'
-        const endDate = '2020-09-30 22:00:00'
+        const startDate = '2020-10-01 00:00:00';
+        const endDate = '2020-10-30 22:00:00';
         const config = {
             headers: { Authorization: `Bearer ${this.token}` }
         };

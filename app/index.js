@@ -38,21 +38,22 @@ class Index{
     async init() {
         // const invoiceNumber = await awsUploader.getInvoiceNumber();
         // console.log(invoiceNumber);
-        // await this.getToken();
-        // console.log('token received ');
-        // const res = await this.getOrders();
-        // for (let [i, o] of res.data.entries()) {
-        //     const invoiceNr = 'FS/' + (i + 8) + '/2020';
-        //     const filename = 'invoice_' + o.createdAt.slice(0, 10) + '_' +
-        //     o.billingAddress.name + '_' + o.billingAddress.surname + '.pdf'
-        //     await pdfGeneratorService.generatePdf(o, filename, invoiceNr);
-        //     await awsUploader.uploadFile(filename);
-        // }
+        await this.getToken();
+        console.log('token received ');
+        const res = await this.getOrders();
+        console.log(res.data.length);
+        for (let [i, o] of res.data.entries()) {
+            const invoiceNr = 'FS/' + (i + 97) + '/2020';
+            const filename = 'invoice_' + o.createdAt.slice(0, 10) + '_' +
+            o.billingAddress.name + '_' + o.billingAddress.surname + '.pdf'
+            await pdfGeneratorService.generatePdf(o, filename, invoiceNr);
+            // await awsUploader.uploadFile(filename);
+        }
 
     }
     async getToken() {
         try {
-            const res = await axios.post(process.env.backend_url_local + 'auth/login', {
+            const res = await axios.post(process.env.backend_url_prod + 'auth/login', {
                 username: process.env.admin_login,
                 password: process.env.admin_pw_prod
             });
@@ -62,13 +63,15 @@ class Index{
         }
     }
     async getOrders() {
-        const startDate = '2020-10-01 00:00:00';
-        const endDate = '2020-10-30 22:00:00';
+        const startDate = '2020-12-01 00:00:00';
+        const endDate = '2020-12-31 22:00:00';
         const config = {
             headers: { Authorization: `Bearer ${this.token}` }
-        };
+        }
+
+        ;
         try{
-            return  await axios.get(process.env.backend_url_local + 'orders/' + startDate + '/' + endDate, config);
+            return  await axios.get(process.env.backend_url_prod + 'orders/' + startDate + '/' + endDate, config);
         }catch (e) {
             console.log(e);
         }

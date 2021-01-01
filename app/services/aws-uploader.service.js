@@ -17,14 +17,15 @@ class AwsUploaderService{
   return new Promise(async (resolve, reject) => {
    const params = {
     Bucket: process.env.ENV === 'PROD' ? process.env.AWS_BUCKET_NAME_PROD: process.env.AWS_BUCKET_NAME_DEV,
+    Prefix: process.env.UPLOAD_FOLDER
    }
    console.log(params);
    this.s3.listObjectsV2(params,(err, data) => {
     if (err) {
      reject(err);
     } else {
-     const invoiceNumber = data.KeyCount + 1;
-     resolve('fs/' + invoiceNumber + '/2020');
+     const invoiceNumber = data.KeyCount;
+     resolve('fs/' + invoiceNumber + '/' + process.env.UPLOAD_FOLDER);
     }
    })
   });
@@ -37,7 +38,7 @@ class AwsUploaderService{
    const params = {
     Bucket: process.env.ENV === 'PROD' ? process.env.AWS_BUCKET_NAME_PROD : process.env.AWS_BUCKET_NAME_DEV,
     ContentType: 'application/pdf',
-    Key: filename, // File name you want to save as in S3
+    Key: process.env.UPLOAD_FOLDER + '/' + filename, // File name you want to save as in S3
     Body: file,
    };
    this.s3.upload(params, (err, data) => {

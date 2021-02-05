@@ -9,7 +9,7 @@ import bodyParser from 'body-parser'
 const axios = require('axios').default;
 class Index{
     constructor() {
-        // this.init();
+        this.init();
         this.app = express();
         this.app.use(bodyParser.urlencoded({
             extended: true
@@ -43,7 +43,7 @@ class Index{
         const res = await this.getOrders();
         console.log(res.data.length);
         for (let [i, o] of res.data.entries()) {
-            const invoiceNr = 'FS/' + (i + 97) + '/2020';
+            const invoiceNr = 'FS/' + (i + 99) + '/2020';
             const filename = 'invoice_' + o.createdAt.slice(0, 10) + '_' +
             o.billingAddress.name + '_' + o.billingAddress.surname + '.pdf'
             await pdfGeneratorService.generatePdf(o, filename, invoiceNr);

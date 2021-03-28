@@ -43,7 +43,7 @@ class Index{
         const res = await this.getOrders();
         console.log(res.data.length);
         for (let [i, o] of res.data.entries()) {
-            const invoiceNr = 'FS/' + (i + 1) + '/2021';
+            const invoiceNr = 'FS/' + (i + 16) + '/2021';
             const filename = 'invoice_' + o.createdAt.slice(0, 10) + '_' +
             o.billingAddress.name + '_' + o.billingAddress.surname + '.pdf'
             await pdfGeneratorService.generatePdf(o, filename, invoiceNr);
@@ -63,8 +63,8 @@ class Index{
         }
     }
     async getOrders() {
-        const startDate = '2021-01-01 00:00:00';
-        const endDate = '2021-01-31 22:00:00';
+        const startDate = '2021-02-01 00:00:00';
+        const endDate = '2021-02-28 22:00:00';
         const config = {
             headers: { Authorization: `Bearer ${this.token}` }
         }

@@ -38,17 +38,17 @@ class Index{
     async init() {
         // const invoiceNumber = await awsUploader.getInvoiceNumber();
         // console.log(invoiceNumber);
-        await this.getToken();
-        console.log('token received ');
-        const res = await this.getOrders();
-        console.log(res.data.length);
-        for (let [i, o] of res.data.entries()) {
-            const invoiceNr = 'FS/' + (i + 16) + '/2021';
-            const filename = 'invoice_' + o.createdAt.slice(0, 10) + '_' +
-            o.billingAddress.name + '_' + o.billingAddress.surname + '.pdf'
-            await pdfGeneratorService.generatePdf(o, filename, invoiceNr);
-            // await awsUploader.uploadFile(filename);
-        }
+        // await this.getToken();
+        // console.log('token received ');
+        // const res = await this.getOrders();
+        // console.log(res.data.length);
+        // for (let [i, o] of res.data.entries()) {
+        //     const invoiceNr = 'FS/' + (i + 16) + '/2021';
+        //     const filename = 'invoice_' + o.createdAt.slice(0, 10) + '_' +
+        //     o.billingAddress.name + '_' + o.billingAddress.surname + '.pdf'
+        //     await pdfGeneratorService.generatePdf(o, filename, invoiceNr);
+        //     // await awsUploader.uploadFile(filename);
+        // }
 
     }
     async getToken() {

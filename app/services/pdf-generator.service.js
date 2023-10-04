@@ -14,8 +14,17 @@ Handlebars.registerHelper('decimal', (price) => {
     return (Math.round(price * 100) / 100).toFixed(2);
 });
 Handlebars.registerHelper('voucherDiscount', (order) => {
+    const val1 = ((order.total - order.shipping.shippingPrice) * 100 / (100 - order.voucher.pctDiscount)) * order.voucher.pctDiscount / 100;
+    // const price1 = Money.fromDecimal(val, 'pln', Math.ceil).amount / 100;
+    // return (Math.round(price * 100) / 100).toFixed(2);
     const val = order.discountValue;
-    const price = (Math.round(val * 100) / 100).toFixed(2);
+    let productListTotal = 0;
+    for(let pl of order.productLists) {
+        productListTotal += pl.total;
+    }
+    const newVal = (productListTotal + order.shipping.shippingPrice) - order.total;
+    console.log(order.total, productListTotal, val1, (order.total-productListTotal))
+    const price = (Math.round(newVal * 100) / 100).toFixed(2);
     return price
 });
 class PdfGeneratorService{

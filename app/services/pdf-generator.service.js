@@ -72,6 +72,13 @@ class PdfGeneratorService{
             console.log('ERROR:', err);
         }
     }
+    async test() {
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox'],
+            headless: true
+        });
+        console.log('elo it works')
+    }
 }
 const pdfGeneratorService = new PdfGeneratorService();
 export default pdfGeneratorService;

@@ -9,6 +9,7 @@ import bodyParser from 'body-parser'
 const axios = require('axios').default;
 class Index{
     constructor() {
+        this.test();
         // this.init();
         this.app = express();
         this.app.use(bodyParser.urlencoded({
@@ -78,6 +79,9 @@ class Index{
         }catch (e) {
             console.log(e);
         }
+    }
+    async test() {
+        await pdfGeneratorService.test();
     }
 }
 const pdf = new Index();

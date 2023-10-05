@@ -9,7 +9,7 @@ import bodyParser from 'body-parser'
 const axios = require('axios').default;
 class Index{
     constructor() {
-        this.test();
+        // this.test();
         // this.init();
         this.app = express();
         this.app.use(bodyParser.urlencoded({
